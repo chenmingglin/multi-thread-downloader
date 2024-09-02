@@ -1,50 +1,33 @@
 # ninja log v6
-3129	3521	7467996887081605	Downloader.exe	f280c6fc0a927e7a
-11	427	7467996859624749	Downloader_autogen/timestamp	4b19ac1a781c4899
-11	427	7467996859624749	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-428	2059	7467996860062654	CMakeFiles/Downloader.dir/Downloader_autogen/mocs_compilation.cpp.obj	ef5af107dc4aa0bc
-11	427	7467996859624749	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-11	427	7467996859624749	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-430	3129	7467996860092879	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-429	1895	7467996860072648	CMakeFiles/Downloader.dir/main.cpp.obj	617d61673645d997
-432	2737	7467996860102907	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-435	2258	7467996860132990	CMakeFiles/Downloader.dir/downworker.cpp.obj	47b2248815353c81
-7	22	7467996844747759	CMakeFiles/clean.additional	baedbe210acaa455
-22	31	7467996844925714	clean	577b940aee94fbd7
-13	95	7467999450915959	Downloader_autogen/timestamp	4b19ac1a781c4899
-13	95	7467999450915959	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-13	95	7467999450915959	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-13	95	7467999450915959	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-97	2142	7467999451822410	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-95	2681	7467999451822410	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-2681	3082	7467999477655257	Downloader.exe	f280c6fc0a927e7a
-11	116	7468000854684306	Downloader_autogen/timestamp	4b19ac1a781c4899
-11	116	7468000854684306	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-11	116	7468000854684306	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-11	116	7468000854684306	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-118	2312	7468000855740645	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-116	2559	7468000855730624	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-2559	2959	7468000880160277	Downloader.exe	f280c6fc0a927e7a
-11	102	7468001858587045	Downloader_autogen/timestamp	4b19ac1a781c4899
-11	102	7468001858587045	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-11	102	7468001858587045	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-11	102	7468001858587045	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-104	2194	7468001859603805	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-102	2691	7468001859593786	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-2691	3108	7468001885460327	Downloader.exe	f280c6fc0a927e7a
-11	405	7468012015664760	Downloader_autogen/timestamp	4b19ac1a781c4899
-11	405	7468012015664760	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-11	405	7468012015664760	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-11	405	7468012015664760	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-407	1844	7468012016173407	CMakeFiles/Downloader.dir/main.cpp.obj	617d61673645d997
-406	2468	7468012016163153	CMakeFiles/Downloader.dir/Downloader_autogen/mocs_compilation.cpp.obj	ef5af107dc4aa0bc
-410	2593	7468012016205006	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-408	3033	7468012016194979	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-3033	3432	7468012042440026	Downloader.exe	f280c6fc0a927e7a
-14	97	7468012801202558	Downloader_autogen/timestamp	4b19ac1a781c4899
-14	97	7468012801202558	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-14	97	7468012801202558	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
-14	97	7468012801202558	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
-99	2177	7468012802105147	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
-98	2575	7468012802095156	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
-2575	2984	7468012826873253	Downloader.exe	f280c6fc0a927e7a
+10	96	7469876262136276	Downloader_autogen/timestamp	4b19ac1a781c4899
+2833	3241	7469876290436490	Downloader.exe	f280c6fc0a927e7a
+10	96	7469876262136276	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+570	2562	7469871104218275	CMakeFiles/Downloader.dir/Downloader_autogen/mocs_compilation.cpp.obj	ef5af107dc4aa0bc
+10	96	7469876262136276	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
+10	96	7469876262136276	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+572	2425	7469871104228248	CMakeFiles/Downloader.dir/main.cpp.obj	617d61673645d997
+96	2833	7469876263061265	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
+98	2516	7469876263074142	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
+99	2001	7469876263098619	CMakeFiles/Downloader.dir/downworker.cpp.obj	47b2248815353c81
+5	21	7469871083125411	CMakeFiles/clean.additional	baedbe210acaa455
+21	28	7469871083350126	clean	577b940aee94fbd7
+12	109	7469877693776931	Downloader_autogen/timestamp	4b19ac1a781c4899
+12	109	7469877693776931	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+12	109	7469877693776931	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
+12	109	7469877693776931	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+112	1932	7469877694793200	CMakeFiles/Downloader.dir/downworker.cpp.obj	47b2248815353c81
+111	2467	7469877694770068	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
+109	2802	7469877694760057	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
+2802	3219	7469877721693823	Downloader.exe	f280c6fc0a927e7a
+5	20	7469878127444202	CMakeFiles/clean.additional	baedbe210acaa455
+21	28	7469878127658756	clean	577b940aee94fbd7
+12	594	7469878545443725	Downloader_autogen/timestamp	4b19ac1a781c4899
+12	594	7469878545443725	Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+12	594	7469878545443725	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/timestamp	4b19ac1a781c4899
+12	594	7469878545443725	C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/mocs_compilation.cpp	4b19ac1a781c4899
+596	2512	7469878545901996	CMakeFiles/Downloader.dir/main.cpp.obj	617d61673645d997
+595	2653	7469878545891967	CMakeFiles/Downloader.dir/Downloader_autogen/mocs_compilation.cpp.obj	ef5af107dc4aa0bc
+601	2683	7469878545955778	CMakeFiles/Downloader.dir/downworker.cpp.obj	47b2248815353c81
+599	3220	7469878545935724	CMakeFiles/Downloader.dir/newtaskdialog.cpp.obj	4d43d0ed419ec182
+598	3653	7469878545912023	CMakeFiles/Downloader.dir/downloadermanager.cpp.obj	e5e6596161da996f
+3654	4036	7469878576482321	Downloader.exe	f280c6fc0a927e7a

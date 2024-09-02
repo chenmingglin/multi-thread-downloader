@@ -7,6 +7,8 @@
 #include <QList>
 #include <QMutex>
 #include <QVector>
+#include <QFile>
+#include <QScopedPointer>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class DownloaderManager;
@@ -58,4 +60,8 @@ private:
 
     bool is_stop{false};
     QVector<bool> is_sucess {false};
+
+    QFile *m_file {};
+    //QScopedPointer<uchar> m_file_map{};
+    uchar* file_ptr{};
 };

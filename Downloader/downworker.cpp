@@ -7,9 +7,10 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QSharedPointer>
-DownWorker::DownWorker(task_info info, QObject *parent)
+DownWorker::DownWorker(uchar* fmap, task_info info, QObject *parent)
     : QObject{parent}
     , m_task_info(std::move(info))
+    , m_data(fmap)
 {}
 
 DownWorker::~DownWorker()
@@ -49,29 +50,48 @@ void DownWorker::start_down()
         return;
     }
 
-    QFile file(m_task_info.info.path);
+    // QByteArray buffer = m_reply->readAll();
+    // memcpy(m_data + m_task_info.start_pos, buffer.data(), buffer.size());
 
-    {
-        QMutexLocker<QMutex> locker(&mtx);
-        if(!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-            emit error_sig(file.error(), file.errorString());
-            return;
-        } else {
-            file.seek(m_task_info.start_pos);
-            QByteArray data {};
-            while (!m_reply->atEnd()) {
-                QByteArray buffer = m_reply->read(1024);
-                data.append(buffer);
-                file.write(buffer);
-            }
-            file.close();
-            m_currPos = m_task_info.start_pos + data.size();
-            emit stop_position_sig(m_task_info.order, m_currPos);
-            if(m_currPos >= m_task_info.end_pos) {
-                emit finished_sig(m_task_info.order);
-            }
-        }
+
+    QByteArray data{};
+    qint64 offset {};
+    while (!m_reply->atEnd()) {
+        QByteArray buffer = m_reply->read(1024);
+        data.append(buffer);
+        memcpy(m_data + m_task_info.start_pos + offset, buffer.data(), buffer.size());
+        offset += buffer.size();
     }
+    m_currPos = m_task_info.start_pos + data.size();
+    emit stop_position_sig(m_task_info.order, m_currPos);
+    if(m_currPos >= m_task_info.end_pos) {
+        emit finished_sig(m_task_info.order);
+    }
+
+
+    // QFile file(m_task_info.info.path);
+
+    // {
+    //     QMutexLocker<QMutex> locker(&mtx);
+    //     if(!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+    //         emit error_sig(file.error(), file.errorString());
+    //         return;
+    //     } else {
+    //         file.seek(m_task_info.start_pos);
+    //         QByteArray data {};
+    //         while (!m_reply->atEnd()) {
+    //             QByteArray buffer = m_reply->read(1024);
+    //             data.append(buffer);
+    //             file.write(buffer);
+    //         }
+    //         file.close();
+    //         m_currPos = m_task_info.start_pos + data.size();
+    //         emit stop_position_sig(m_task_info.order, m_currPos);
+    //         if(m_currPos >= m_task_info.end_pos) {
+    //             emit finished_sig(m_task_info.order);
+    //         }
+    //     }
+    // }
 
 
 }

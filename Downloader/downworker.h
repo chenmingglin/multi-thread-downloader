@@ -9,7 +9,7 @@ class DownWorker : public QObject
 {
     Q_OBJECT
 public:
-    DownWorker(task_info info, QObject *parent = nullptr);
+    DownWorker(uchar* fmap,task_info info, QObject *parent = nullptr);
     ~DownWorker();
 signals:
     void down_error_sig();
@@ -24,5 +24,6 @@ public slots:
 private:
     task_info m_task_info {};
     qint64 m_currPos{};
+    uchar* m_data {};
 };
 
