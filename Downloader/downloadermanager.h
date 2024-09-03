@@ -64,4 +64,8 @@ private:
     QFile *m_file {};
     //QScopedPointer<uchar> m_file_map{};
     uchar* file_ptr{};
+    quint64 m_size {};
+    quint64 m_stop_size{};
+    QVector<quint64> m_recv_list {};
+    QVector<bool> m_stop_flags{};
 };

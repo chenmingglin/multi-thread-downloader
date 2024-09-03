@@ -18,6 +18,7 @@ signals:
     void down_progress_sig(int order, double progress);
     void stop_down_sig();
     void stop_position_sig(int order, quint64 stop_pos);
+    void current_progress(int, qint64);
 public slots:
     void slot_stop();
     void start_down();
@@ -25,5 +26,6 @@ private:
     task_info m_task_info {};
     qint64 m_currPos{};
     uchar* m_data {};
+    bool m_isStop{false};
 };
 

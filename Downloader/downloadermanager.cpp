@@ -13,6 +13,7 @@ DownloaderManager::DownloaderManager(QWidget *parent)
     , m_start_positions(max_thread_num, 0)
     , m_end_positions(max_thread_num, 0)
     , is_sucess(max_thread_num, false)
+    , m_recv_list(max_thread_num, 0)
 {
     ui->setupUi(this);
     //设置线程数量
@@ -28,13 +29,13 @@ DownloaderManager::DownloaderManager(QWidget *parent)
         m_start_positions.resize(max_thread_num);
         m_end_positions.resize(max_thread_num);
         is_sucess.resize(max_thread_num, false);
+        m_recv_list.resize(max_thread_num);
 
         qDebug() << "list.length" << recv_size_list.length();
         qDebug() << "threadNum:max_thread_num:" << max_thread_num;
     });
     if(recv_size_list.length() != recv_size_weights.length()) {
         QMessageBox::warning(nullptr, tr("错误"), tr("程序错误"), QMessageBox::Ok);
-        emit manager_error();
     }
 
 }
@@ -102,6 +103,28 @@ void DownloaderManager::new_down()
         connect(worker.data(), &DownWorker::stop_position_sig, this, [this](int order, quint64 pos){
             m_start_positions[order] = pos;
         });
+        connect(worker.data(), &DownWorker::current_progress, this,[this](int order, qint64 curr_size){
+
+            {
+                static int count = 0;
+                QMutexLocker<QMutex> locker(&m_mtx);
+                m_recv_list[order] = curr_size;
+                m_size = m_stop_size;
+                for(const auto& t : m_recv_list) {
+                    m_size += t;
+                }
+
+                if(is_stop) {
+                    if(count == 4) {
+                        m_stop_size = m_size;
+                    } else {
+                        count++;
+                    }
+                }
+                QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(m_size))));
+
+            }
+        }, Qt::QueuedConnection);
 
         thread_list.append(thread);
         worker_list.append(worker);
@@ -153,8 +176,8 @@ void DownloaderManager::down_ok()
         QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(m_file_size))));
         QMetaObject::invokeMethod(ui->progress, "setValue", Qt::QueuedConnection, Q_ARG(int, 100));
         QMetaObject::invokeMethod(ui->status, "setText", Qt::QueuedConnection, Q_ARG(QString, "下载完成"));
-        QMessageBox::information(nullptr, tr("成功"), tr("下载完成!!!"), QMessageBox::Ok);
-        emit down_over();
+        //QMessageBox::information(nullptr, tr("成功"), tr("下载完成!!!"), QMessageBox::Ok);
+        //emit down_over();
     }
 }
 
@@ -204,7 +227,7 @@ void DownloaderManager::recv_progress(int order, double progress)
             is_sucess[order] = true;
             down_ok();
         }
-        QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(recv_total / 100 * m_file_size))));
+        //QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(recv_total / 100 * m_file_size))));
         QMetaObject::invokeMethod(ui->progress, "setValue", Qt::QueuedConnection, Q_ARG(int, static_cast<int>(recv_total)));
 
         if(is_stop) {

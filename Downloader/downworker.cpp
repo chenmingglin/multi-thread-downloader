@@ -61,6 +61,7 @@ void DownWorker::start_down()
         data.append(buffer);
         memcpy(m_data + m_task_info.start_pos + offset, buffer.data(), buffer.size());
         offset += buffer.size();
+        emit current_progress(m_task_info.order, offset);
     }
     m_currPos = m_task_info.start_pos + data.size();
     emit stop_position_sig(m_task_info.order, m_currPos);
@@ -98,7 +99,7 @@ void DownWorker::start_down()
 
 void DownWorker::slot_stop()
 {
-    emit stop_down_sig();
+    m_isStop = true;
 }
 
 
