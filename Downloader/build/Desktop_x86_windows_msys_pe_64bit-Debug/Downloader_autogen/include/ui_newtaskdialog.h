@@ -42,9 +42,11 @@ public:
         NewTaskDialog->resize(550, 207);
         buttonBox = new QDialogButtonBox(NewTaskDialog);
         buttonBox->setObjectName("buttonBox");
-        buttonBox->setGeometry(QRect(150, 160, 341, 32));
+        buttonBox->setGeometry(QRect(290, 160, 191, 32));
+        buttonBox->setStyleSheet(QString::fromUtf8(""));
         buttonBox->setOrientation(Qt::Orientation::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok);
+        buttonBox->setCenterButtons(true);
         widget = new QWidget(NewTaskDialog);
         widget->setObjectName("widget");
         widget->setGeometry(QRect(60, 20, 431, 121));

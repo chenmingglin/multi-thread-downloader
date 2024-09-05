@@ -659,6 +659,7 @@ Downloader_autogen/timestamp: \
 	C:/multi\ thread\ downloader/Downloader/main.cpp \
 	C:/multi\ thread\ downloader/Downloader/newtaskdialog.cpp \
 	C:/multi\ thread\ downloader/Downloader/newtaskdialog.h \
+	C:/multi\ thread\ downloader/Downloader/res.qrc \
 	C:/multi\ thread\ downloader/Downloader/downloadermanager.ui \
 	C:/multi\ thread\ downloader/Downloader/newtaskdialog.ui \
 	C:/Qt/Tools/CMake_64/bin/cmake.exe

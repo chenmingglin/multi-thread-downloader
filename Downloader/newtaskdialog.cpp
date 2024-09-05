@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <QScopedPointer>
 #include <QMessageBox>
+#include <QFile>
 NewTaskDialog::NewTaskDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewTaskDialog)
@@ -19,6 +20,7 @@ NewTaskDialog::NewTaskDialog(QWidget *parent)
     connect(ui->path, &QComboBox::currentTextChanged, this,[this](const QString& text){
         m_path= text + "/";
     });
+
 }
 
 NewTaskDialog::~NewTaskDialog()
@@ -102,6 +104,11 @@ void NewTaskDialog::set_file_name_and_size()
             QString new_type = get_file_extension_from_content_type(type);
             if(QFileInfo fileInfo(m_url.toString()); new_type.isEmpty()) {
                 m_file_name = fileInfo.fileName();
+                int question_mark_pos = m_file_name.indexOf("?");
+                if(question_mark_pos != -1) {
+                    m_file_name = m_file_name.left(question_mark_pos);
+                }
+
             } else {
                 m_file_name = fileInfo.baseName() + ".";
                 m_file_name += new_type;

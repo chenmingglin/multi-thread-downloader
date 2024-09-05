@@ -32,6 +32,7 @@ signals:
     void manager_error();
     void down_over();
     void stop_sig();
+    void ok_sig();
 private slots:
     void on_actionNew_triggered();
     void on_start_clicked();
@@ -62,10 +63,11 @@ private:
     QVector<bool> is_sucess {false};
 
     QFile *m_file {};
-    //QScopedPointer<uchar> m_file_map{};
     uchar* file_ptr{};
     quint64 m_size {};
     quint64 m_stop_size{};
     QVector<quint64> m_recv_list {};
     QVector<bool> m_stop_flags{};
+
+    bool over {false};
 };

@@ -23,7 +23,6 @@ void DownWorker::start_down()
     QScopedPointer<QNetworkAccessManager> m_manager{new QNetworkAccessManager};
     QNetworkRequest request(m_task_info.info.url);
     request.setRawHeader("Range",QString("bytes=%1-%2").arg(m_task_info.start_pos).arg(m_task_info.end_pos).toUtf8());
-    qDebug() << "start:" << m_task_info.start_pos << "end:" <<m_task_info.end_pos;
     QSharedPointer<QNetworkReply> m_reply(m_manager->get(request));
 
     QEventLoop event_loop;
@@ -50,50 +49,17 @@ void DownWorker::start_down()
         return;
     }
 
-    // QByteArray buffer = m_reply->readAll();
-    // memcpy(m_data + m_task_info.start_pos, buffer.data(), buffer.size());
-
-
-    QByteArray data{};
     qint64 offset {};
     while (!m_reply->atEnd()) {
-        QByteArray buffer = m_reply->read(1024);
-        data.append(buffer);
+        QByteArray buffer = m_reply->read(1024*1024);
         memcpy(m_data + m_task_info.start_pos + offset, buffer.data(), buffer.size());
         offset += buffer.size();
-        emit current_progress(m_task_info.order, offset);
     }
-    m_currPos = m_task_info.start_pos + data.size();
+    m_currPos = m_task_info.start_pos + offset;
     emit stop_position_sig(m_task_info.order, m_currPos);
     if(m_currPos >= m_task_info.end_pos) {
         emit finished_sig(m_task_info.order);
     }
-
-
-    // QFile file(m_task_info.info.path);
-
-    // {
-    //     QMutexLocker<QMutex> locker(&mtx);
-    //     if(!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-    //         emit error_sig(file.error(), file.errorString());
-    //         return;
-    //     } else {
-    //         file.seek(m_task_info.start_pos);
-    //         QByteArray data {};
-    //         while (!m_reply->atEnd()) {
-    //             QByteArray buffer = m_reply->read(1024);
-    //             data.append(buffer);
-    //             file.write(buffer);
-    //         }
-    //         file.close();
-    //         m_currPos = m_task_info.start_pos + data.size();
-    //         emit stop_position_sig(m_task_info.order, m_currPos);
-    //         if(m_currPos >= m_task_info.end_pos) {
-    //             emit finished_sig(m_task_info.order);
-    //         }
-    //     }
-    // }
-
 
 }
 

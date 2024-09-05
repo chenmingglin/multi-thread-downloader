@@ -1,0 +1,29 @@
+{
+	"BUILD_DIR" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen",
+	"CMAKE_BINARY_DIR" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/multi thread downloader/Downloader",
+	"CMAKE_SOURCE_DIR" : "C:/multi thread downloader/Downloader",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/Downloader_autogen/include",
+	"INPUTS" : 
+	[
+		"C:/multi thread downloader/Downloader/ButtonStyleSheet.qss",
+		"C:/multi thread downloader/Downloader/Img/cancel.png",
+		"C:/multi thread downloader/Downloader/Img/start.png",
+		"C:/multi thread downloader/Downloader/Img/stop.png",
+		"C:/multi thread downloader/Downloader/Img/\u65b0\u5efa\u7a97\u53e3.png"
+	],
+	"LOCK_FILE" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/CMakeFiles/Downloader_autogen.dir/AutoRcc_res_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "res" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_res.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.7.2/mingw_64/./bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/multi thread downloader/Downloader/build/Desktop_x86_windows_msys_pe_64bit-Debug/CMakeFiles/Downloader_autogen.dir/AutoRcc_res_EWIEGA46WW_Used.txt",
+	"SOURCE" : "C:/multi thread downloader/Downloader/res.qrc",
+	"USE_BETTER_GRAPH" : false,
+	"VERBOSITY" : 0
+}

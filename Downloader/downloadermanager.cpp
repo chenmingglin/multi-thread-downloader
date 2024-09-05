@@ -16,6 +16,22 @@ DownloaderManager::DownloaderManager(QWidget *parent)
     , m_recv_list(max_thread_num, 0)
 {
     ui->setupUi(this);
+
+    QFile btnstylefile(":/ButtonStyleSheet.qss");
+    if(!btnstylefile.open(QIODevice::ReadOnly)) {
+        qDebug() << "样式文件打开失败" << btnstylefile.errorString();
+    }
+
+    QString btnStyle = btnstylefile.readAll();
+    ui->start->setStyleSheet(btnStyle);
+    ui->cancel->setStyleSheet(btnStyle);
+    ui->stop->setStyleSheet(btnStyle);
+
+    ui->stop->hide();
+    ui->stop->setDisabled(true);
+
+    ui->progress->setStyleSheet(btnStyle);
+
     //设置线程数量
     for(int i{0}, j{1}; i < 9; ++i) {
         ui->thread_num->addItem(QString::number(j));
@@ -42,6 +58,14 @@ DownloaderManager::DownloaderManager(QWidget *parent)
 
 DownloaderManager::~DownloaderManager()
 {
+    if(!over) {
+        QFile remove_file(m_info.path);
+        if(remove_file.exists()) {
+            if(!remove_file.remove()) {
+                qDebug() << "文件删除失败!!" << remove_file.errorString();
+            }
+        }
+    }
     delete ui;
     for (const auto& thread : thread_list) {
         if(!thread.isNull()) {
@@ -49,15 +73,18 @@ DownloaderManager::~DownloaderManager()
             thread->wait();
         }
     }
+    if(m_file) {
+        delete m_file;
+    }
+
+
 }
 
 void DownloaderManager::new_down()
 {
     qDebug() << "主线程：" << QThread::currentThreadId();
-    qDebug() << "start__pos" << m_recv_total;
 
-    QFile *file = new QFile(m_info.path);
-    m_file = file;
+    m_file = new QFile(m_info.path);
     if(!m_file->open(QIODevice::ReadWrite)) {
         qDebug() << "写入文件打开失败" << m_file->errorString();
         return;
@@ -70,7 +97,7 @@ void DownloaderManager::new_down()
         qDebug() << "文件映射打开失败";
         return;
     }
-    qDebug() << "addr:" << file_ptr;
+
     quint64 bytesper_thread = m_file_size / max_thread_num;
     for(int i {}; i < max_thread_num; ++i) {
         quint64 start {i * bytesper_thread};
@@ -103,33 +130,12 @@ void DownloaderManager::new_down()
         connect(worker.data(), &DownWorker::stop_position_sig, this, [this](int order, quint64 pos){
             m_start_positions[order] = pos;
         });
-        connect(worker.data(), &DownWorker::current_progress, this,[this](int order, qint64 curr_size){
-
-            {
-                static int count = 0;
-                QMutexLocker<QMutex> locker(&m_mtx);
-                m_recv_list[order] = curr_size;
-                m_size = m_stop_size;
-                for(const auto& t : m_recv_list) {
-                    m_size += t;
-                }
-
-                if(is_stop) {
-                    if(count == 4) {
-                        m_stop_size = m_size;
-                    } else {
-                        count++;
-                    }
-                }
-                QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(m_size))));
-
-            }
-        }, Qt::QueuedConnection);
 
         thread_list.append(thread);
         worker_list.append(worker);
     }
     qDebug() << "wight" << recv_size_weights;
+
 
     for (const auto& thread : thread_list) {
         thread->start();
@@ -144,10 +150,15 @@ void DownloaderManager::quit_thread()
             thread->wait();
         }
     }
+
+
+    m_file->unmap(file_ptr);
+    if(m_file) {
+        delete m_file;
+        m_file = nullptr;
+    }
     thread_list.clear();
     worker_list.clear();
-    qDebug() << "thread:" << worker_list.length();
-    qDebug() << "worker:" << worker_list.length();
 }
 
 void DownloaderManager::init_ui()
@@ -159,6 +170,10 @@ void DownloaderManager::init_ui()
     ui->save_path->setText(nullptr);
     ui->status->setText("暂停");
     ui->progress->setValue(0);
+    ui->start->show();
+    ui->start->setEnabled(true);
+    ui->stop->hide();
+    ui->stop->setDisabled(true);
 }
 
 void DownloaderManager::down_ok()
@@ -172,12 +187,19 @@ void DownloaderManager::down_ok()
     };
 
     if(flag()) {
+        over = true;
         is_sucess.resize(max_thread_num, false);
         QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(m_file_size))));
         QMetaObject::invokeMethod(ui->progress, "setValue", Qt::QueuedConnection, Q_ARG(int, 100));
         QMetaObject::invokeMethod(ui->status, "setText", Qt::QueuedConnection, Q_ARG(QString, "下载完成"));
         //QMessageBox::information(nullptr, tr("成功"), tr("下载完成!!!"), QMessageBox::Ok);
-        //emit down_over();
+        // emit down_over();
+        ui->start->setEnabled(true);
+        ui->start->show();
+
+        ui->stop->hide();
+        ui->stop->setDisabled(true);
+        quit_thread();
     }
 }
 
@@ -202,6 +224,11 @@ void DownloaderManager::on_actionNew_triggered()
 
 void DownloaderManager::on_start_clicked()
 {
+    ui->start->hide();
+    ui->start->setDisabled(true);
+
+    ui->stop->setEnabled(true);
+    ui->stop->show();
     is_stop = false;
     if(ui->url->text().isEmpty()) {
         QMessageBox::warning(nullptr, tr("错误"), tr("无效Url"), QMessageBox::Ok);
@@ -227,7 +254,7 @@ void DownloaderManager::recv_progress(int order, double progress)
             is_sucess[order] = true;
             down_ok();
         }
-        //QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(recv_total / 100 * m_file_size))));
+        QMetaObject::invokeMethod(ui->recv_size, "setText", Qt::QueuedConnection, Q_ARG(QString, QString::number(static_cast<int>(recv_total / 100 * m_file_size))));
         QMetaObject::invokeMethod(ui->progress, "setValue", Qt::QueuedConnection, Q_ARG(int, static_cast<int>(recv_total)));
 
         if(is_stop) {
@@ -254,6 +281,11 @@ void DownloaderManager::on_cancel_clicked()
 
 void DownloaderManager::on_stop_clicked()
 {
+    ui->stop->hide();
+    ui->stop->setDisabled(true);
+
+    ui->start->setEnabled(true);
+    ui->start->show();
     is_stop = true;
     quit_thread();
     emit stop_sig();
